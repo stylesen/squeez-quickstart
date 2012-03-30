@@ -1,0 +1,29 @@
+$def with (url)
+
+<html>
+<head>
+  <script type='text/javascript'>
+    function closeit() {
+    window.opener = self;
+    window.close();
+    }
+  </script>
+</head>
+
+<body>
+  <center>
+    <img src="../static/images/squeeze_urls.jpg">
+    <br><br><br>
+    <form method="post" action="/sendemail">
+      <table border=0>
+        <tr><td>Email ID</td><td><input type="text" name="emailid" /></td></tr>
+        <tr><td>Subject</td><td><input type="text" name="subject" value="Squeezed URL"></td></tr>
+        <tr><td>Message</td><td><textarea rows="3" cols="23" name="message">$base_url/$url</textarea></td></tr>
+      </table>
+        <input type="submit" value="Send Email"/>
+    </form>
+    <br><br>
+  </center>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+$def with (url)
+
+<html>
+<head>
+  <script type='text/javascript' src='/static/ZeroClipboard.js'></script>
+  <script type='text/javascript'>
+    function popitup() {
+    newwindow=window.open('/email/$url', 'Send Email', 'height=325, width=325');
+    if (window.focus) {newwindow.focus()}
+    return false;
+    }
+  </script>
+</head>
+
+<body>
+  <center>
+    <img src="../static/images/squeeze_urls.jpg">
+    <br><br><br>
+    <form method="post" action="/squeeze">
+      <p><input type="text" name="squeeze" /> <input type="submit" value="Squeeze" onClick="ClipBoard();"/></p>
+    </form>
+    <br><br>
+    <b>Squeezed URL</b><br><br>
+    $base_url/u/$url
+    <br><br>
+    <img title="Copy to ClipBoard" id="copy" src="../static/images/clipboard_icon.png">
+    <img src="../static/images/mail_icon.jpg" title="Send Email" onclick="return popitup()">
+  </center>
+
+  <script language="JavaScript">
+    var clip = new ZeroClipboard.Client();
+
+    clip.setText('');
+    clip.addEventListener('mousedown', my_mouse_down_handler);
+
+    function my_mouse_down_handler(clip) {
+    clip.setText('$base_url/u/$url');
+    }
+
+    clip.glue('copy');
+  </script>
+
+</body>
+</html>
