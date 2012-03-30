@@ -30,7 +30,7 @@ config.add_section('misc')
 config.set('misc', 'base_url', 'http://' + os.environ['OPENSHIFT_GEAR_DNS'])
 
 # Write the configuration file.
-with open(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], '/data/squeeze.cfg'),\
+with open(os.path.join(os.environ['OPENSHIFT_REPO_DIR'], 'data/squeeze.cfg'),\
               'wb') as configfile:
     config.write(configfile)
 print """Successfully created configuration file for Squeeze."""
