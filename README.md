@@ -34,11 +34,11 @@ That's it! Squeeze is up and running! Visit the site here:
 Email Configuration
 -------------------
 
-In order to send emails from Squeeze application, then edit squeeze.cfg which
-has a section called '[email]' holding all email related config parameters:
+In order to send emails from Squeeze application, edit deploy script which
+has code holding all email related config parameters:
 
     cd squeeze
-    vi data/squeeze.cfg
+    vi .openshift/action_hooks/deploy
     git add .
     git commit -a -m 'Email configuration done.'
     git push
