@@ -37,8 +37,8 @@ Email Configuration
 In order to send emails from Squeeze application, then edit squeeze.cfg which
 has a section called '[email]' holding all email related config parameters:
 
-   cd squeeze
-   vi data/squeeze.cfg
-   git add .
-   git commit -a -m 'Email configuration done.'
-   git push
+    cd squeeze
+    vi data/squeeze.cfg
+    git add .
+    git commit -a -m 'Email configuration done.'
+    git push
