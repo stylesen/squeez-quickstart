@@ -19,19 +19,19 @@ import ConfigParser
 
 config = ConfigParser.RawConfigParser()
 config.read(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
-                         'data/squeeze.cfg'))
+                         'data/squeez.cfg'))
 
 # Base URL will be used in templates to construct the URLs.
 common = {'base_url': config.get('misc', 'base_url')}
 render = web.template.render(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
                                           'data/templates/'), globals=common)
 
-# List of URLs provided by squeeze.
+# List of URLs provided by squeez.
 urls = (
     '/', 'index',
-    '/u/(.*)', 'unsqueeze',
-    '/squeeze', 'squeeze',
-    '/squeezed/(.*)', 'squeezed',
+    '/u/(.*)', 'unsqueez',
+    '/squeez', 'squeez',
+    '/squeezd/(.*)', 'squeezd',
     '/email/(.*)', 'email',
     '/sendemail', 'sendemail'
 )
@@ -44,15 +44,15 @@ db = web.database(dbn = config.get('db', 'type'),
                   host = config.get('db', 'host'))
 
 class index:
-    """This is the index page of Squeeze."""
+    """This is the index page of Squeez."""
 
     def GET(self):
         return render.index()
 
-class unsqueeze:
-    """Helps to unsqueeze the squeezed URL.
+class unsqueez:
+    """Helps to unsqueez the squeezd URL.
 
-    HASH accepts squeezed url hash and unsqueezes it based on db lookup."""
+    HASH accepts squeezd url hash and unsqueezs it based on db lookup."""
 
     def GET(self, hash):
         if hash:
@@ -62,14 +62,14 @@ class unsqueeze:
                 # Redirect to the actual URL.
                 raise web.redirect(result[0].url)
             else:
-                # If no matches found go to given url within squeeze.
+                # If no matches found go to given url within squeez.
                 raise web.seeother(hash)
         else:
             # Don't have anything to do? Then show index!
             return render.index()
 
-class squeeze:
-    """Squeezes the given URL.
+class squeez:
+    """Squeezs the given URL.
     
     URL is given as an input in text box."""
 
@@ -86,25 +86,25 @@ class squeeze:
             else:
                 break
 
-        # Check if the URL which we want to squeeze is already available with
+        # Check if the URL which we want to squeez is already available with
         # a hash value, if not then assign a new hash value.
         hash_result = db.query("SELECT hash FROM url_mapper WHERE url=$url",
-                               vars={'url':i.squeeze})
+                               vars={'url':i.squeez})
         if hash_result:
             hash = hash_result[0].hash
         else:
             n = db.insert('url_mapper',
-                          url=i.squeeze,
+                          url=i.squeez,
                           expiry=utils.get_expiry(),
                           hash=hash)
 
-        raise web.seeother('/squeezed/' + hash)
+        raise web.seeother('/squeezd/' + hash)
 
-class squeezed:
+class squeezd:
     """Page to land after squeezing a URL."""
 
     def GET(self, url):
-        return render.squeezed(url)
+        return render.squeezd(url)
 
 class sendemail:
     """Sends email based on configuration provided above."""
