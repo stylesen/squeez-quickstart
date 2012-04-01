@@ -18,7 +18,8 @@ import utils
 import ConfigParser
 
 config = ConfigParser.RawConfigParser()
-config.read(os.path.join(os.environ['OPENSHIFT_DATA_DIR'], 'squeeze.cfg'))
+config.read(os.path.join(os.environ['OPENSHIFT_REPO_DIR'],
+                         'data/squeeze.cfg'))
 
 # Base URL will be used in templates to construct the URLs.
 common = {'base_url': config.get('misc', 'base_url')}
