@@ -1,6 +1,6 @@
 #!/bin/bash
 
-/usr/bin/mysql -u 'stylesen' --password='vision' -h 'localhost' 'squeeze'<<EOFMYSQL
+/usr/bin/mysql -u '$OPENSHIFT_DB_USERNAME' --password='$OPENSHIFT_DB_PASSWORD' -h '$OPENSHIFT_DB_HOST' '$OPENSHIFT_APP_NAME'<<EOFMYSQL
 DELETE FROM url_mapper WHERE expiry < NOW();
 COMMIT;
 EOFMYSQL
