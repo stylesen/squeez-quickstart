@@ -110,15 +110,18 @@ class sendemail:
     """Sends email based on configuration provided above."""
 
     def POST(self):
-        i = web.input()
-        web.config.smtp_server = config.get('email', 'smtp_server')
-        web.config.smtp_port = config.getint('email', 'smtp_port')
-        web.config.smtp_username = config.get('email', 'smtp_username')
-        web.config.smtp_password = config.get('email', 'smtp_password')
-        web.config.smtp_starttls = config.get('email', 'smtp_starttls')
-        web.sendmail(config.get('email', 'smtp_username'), i.emailid,
-                     i.subject, i.message)
-        return render.close()
+        if config.get('email', 'smtp_username') == "username@gmail.com":
+            return render.close("Email Configuration Unavailable!")
+        else:
+            i = web.input()
+            web.config.smtp_server = config.get('email', 'smtp_server')
+            web.config.smtp_port = config.getint('email', 'smtp_port')
+            web.config.smtp_username = config.get('email', 'smtp_username')
+            web.config.smtp_password = config.get('email', 'smtp_password')
+            web.config.smtp_starttls = config.get('email', 'smtp_starttls')
+            web.sendmail(config.get('email', 'smtp_username'), i.emailid,
+                         i.subject, i.message)
+            return render.close("Email sent successfully ...")
 
 class email:
     """Page which gets content for sending email."""
